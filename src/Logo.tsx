@@ -11,7 +11,7 @@ const Logo: React.FC = () => (
       alt="An otter scanning"
       title="An otter scanning"
     />
-    <span>Otterscan</span>
+    <span>Optimistic Otterscan</span>
   </div>
 );
 
