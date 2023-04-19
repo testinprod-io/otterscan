@@ -8,6 +8,7 @@ import { RuntimeContext } from "../useRuntime";
 import { useBlockDataFromTransaction } from "../useErigonHooks";
 import { useChainInfo } from "../useChainInfo";
 import { TransactionData } from "../types";
+import { faEthereum } from "@fortawesome/free-brands-svg-icons";
 
 type RewardSplitProps = {
   txData: TransactionData;
@@ -20,16 +21,22 @@ const RewardSplit: React.FC<RewardSplitProps> = ({ txData }) => {
   const {
     nativeCurrency: { symbol },
   } = useChainInfo();
+  // for depositTx, totalFees == 0 so ignore
+  // totalFees = paidFees + l1Fees
+  // paidFees = burntFees + minerReward
+  const totalFees = txData.confirmedData!.fee
+  // when paidFees == 0, set burntFees == 0
   const paidFees = txData.gasPrice.mul(txData.confirmedData!.gasUsed);
-  const burntFees = block
-    ? block.baseFeePerGas!.mul(txData.confirmedData!.gasUsed)
-    : BigNumber.from(0);
-
+  const l1Fees = totalFees.sub(paidFees);
+  const burntFees = paidFees.isZero() ? BigNumber.from(0) : (
+      block
+      ? block.baseFeePerGas!.mul(txData.confirmedData!.gasUsed)
+      : BigNumber.from(0)
+  );
   const minerReward = paidFees.sub(burntFees);
-
-  // for depositTx, paidFees == 0 so ignore
-  const burntPerc = paidFees.isZero() ? 0 : Math.round(burntFees.mul(10000).div(paidFees).toNumber()) / 100;
-  const minerPerc = Math.round((100 - burntPerc) * 100) / 100;
+  const burntPerc = totalFees.isZero() ? 0 : Math.round(burntFees.mul(10000).div(totalFees).toNumber()) / 100;
+  const l1Perc = totalFees.isZero() ? 0 : Math.round(l1Fees.mul(10000).div(totalFees).toNumber()) / 100;
+  const minerPerc = Math.round((100 - burntPerc - l1Perc) * 100) / 100;
 
   return (
     <div className="inline-block">
@@ -66,6 +73,22 @@ const RewardSplit: React.FC<RewardSplitProps> = ({ txData }) => {
             </span>
             <span>
               <FormattedBalance value={minerReward} /> {symbol}
+            </span>
+          </span>
+        </div>
+        <PercentageGauge
+          perc={l1Perc}
+          bgColor="bg-blue-100"
+          bgColorPerc="bg-blue-300"
+          textColor="text-blue-700"
+        />
+        <div className="flex items-baseline space-x-1">
+          <span className="flex space-x-1">
+            <span className="text-blue-300" title="L1 Security fees">
+              <FontAwesomeIcon icon={faEthereum} size="1x" />
+            </span>
+            <span>
+              <FormattedBalance value={l1Fees} /> {symbol}
             </span>
           </span>
         </div>
