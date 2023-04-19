@@ -28,7 +28,7 @@ const RewardSplit: React.FC<RewardSplitProps> = ({ txData }) => {
   const minerReward = paidFees.sub(burntFees);
 
   // for depositTx, paidFees == 0 so ignore
-  const burntPerc = paidFees != BigNumber.from(0) ? 0 : Math.round(burntFees.mul(10000).div(paidFees).toNumber()) / 100;
+  const burntPerc = paidFees.isZero() ? 0 : Math.round(burntFees.mul(10000).div(paidFees).toNumber()) / 100;
   const minerPerc = Math.round((100 - burntPerc) * 100) / 100;
 
   return (
