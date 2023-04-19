@@ -27,6 +27,7 @@ import { blockTxsURL } from "./url";
 import { useBlockData } from "./useErigonHooks";
 import { useETHUSDOracle } from "./usePriceOracle";
 import { useChainInfo } from "./useChainInfo";
+import { BigNumber } from "ethers";
 
 const Block: React.FC = () => {
   const { provider } = useContext(RuntimeContext);
@@ -53,8 +54,9 @@ const Block: React.FC = () => {
       console.info(err);
     }
   }, [block]);
+  const gasUsedWithoutDepositTx = block && block.gasUsed.sub(block.gasUsedDepositTx);
   const burntFees =
-    block?.baseFeePerGas && block.baseFeePerGas.mul(block.gasUsed);
+    block?.baseFeePerGas && block.baseFeePerGas.mul(gasUsedWithoutDepositTx ?? BigNumber.from(0));
   const gasUsedPerc =
     block && block.gasUsed.mul(10000).div(block.gasLimit).toNumber() / 100;
 

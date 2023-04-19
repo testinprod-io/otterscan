@@ -32,6 +32,7 @@ export interface ExtendedBlock extends Block {
   blockReward: BigNumber;
   unclesReward: BigNumber;
   feeReward: BigNumber;
+  gasUsedDepositTx: BigNumber;
   size: number;
   sha3Uncles: string;
   stateRoot: string;
@@ -67,6 +68,7 @@ export const readBlock = async (
     blockReward: provider.formatter.bigNumber(_rawIssuance.blockReward ?? 0),
     unclesReward: provider.formatter.bigNumber(_rawIssuance.uncleReward ?? 0),
     feeReward: provider.formatter.bigNumber(_rawBlock.totalFees),
+    gasUsedDepositTx: provider.formatter.bigNumber(_rawBlock.gasUsedDepositTx ?? 0),
     size: provider.formatter.number(_rawBlock.block.size),
     sha3Uncles: _rawBlock.block.sha3Uncles,
     stateRoot: _rawBlock.block.stateRoot,
