@@ -34,9 +34,10 @@ const RewardSplit: React.FC<RewardSplitProps> = ({ txData }) => {
       : BigNumber.from(0)
   );
   const minerReward = paidFees.sub(burntFees);
+  // percent may not add up to full 100% 
   const burntPerc = totalFees.isZero() ? 0 : Math.round(burntFees.mul(10000).div(totalFees).toNumber()) / 100;
   const l1Perc = totalFees.isZero() ? 0 : Math.round(l1Fees.mul(10000).div(totalFees).toNumber()) / 100;
-  const minerPerc = Math.round((100 - burntPerc - l1Perc) * 100) / 100;
+  const minerPerc = totalFees.isZero() ? 0 : Math.round(minerReward.mul(10000).div(totalFees).toNumber()) / 100;
 
   return (
     <div className="inline-block">
