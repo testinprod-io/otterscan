@@ -1,5 +1,5 @@
 # Optimistic Otterscan
-This is a fork of Otterscan that added specific features for OP Stack. For more details, please refer to [this document](./docs/optimism.md).
+This is a fork of Otterscan that added specific features for OP Stack. It requires [op-erigon](https://github.com/testinprod-io/op-erigon) to work properly. For more details, please refer to [this document](./docs/optimism.md).
 
 Thanks Willian for open-sourcing this amazing block explorer :)
 
