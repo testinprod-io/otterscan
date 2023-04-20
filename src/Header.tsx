@@ -6,7 +6,7 @@ import PriceBox from "./PriceBox";
 import SourcifyMenu from "./SourcifyMenu";
 import { RuntimeContext } from "./useRuntime";
 import { useGenericSearch } from "./search/search";
-import Otter from "./otter.png";
+// import Otter from "./otter.png";
 
 const CameraScanner = lazy(() => import("./search/CameraScanner"));
 
@@ -23,7 +23,7 @@ const Header: FC = () => {
           <div className="text-2xl text-link-blue font-title font-bold flex items-center space-x-2">
             <img
               className="rounded-full"
-              src={Otter}
+              src="https://otterscan.static.testinprod.io/otter.png"
               width={32}
               height={32}
               alt="An otter scanning"
