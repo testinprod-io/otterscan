@@ -1,6 +1,13 @@
+# Optimistic Otterscan
+This is a fork of Otterscan that added specific features for OP Stack. For more details, please refer to [this document](./docs/optimism.md).
+
+Thanks Willian for open-sourcing this amazing block explorer :)
+
+---
+
 # Otterscan
 
-An open-source, fast, local, laptop-friendly Ethereum block explorer tweaked for optimism.
+An open-source, fast, local, laptop-friendly Ethereum block explorer.
 
 https://user-images.githubusercontent.com/28685/124196700-4fe71200-daa3-11eb-912c-b66494fe4b23.mov
 
@@ -61,10 +68,6 @@ However, you will see that we made many UI improvements.
 ## Contract verification
 
 We make use of [Sourcify](https://sourcify.dev/) for displaying contract verification info. More info [here](docs/sourcify.md).
-
-## Patches for Optimism
-
-[Here](./docs/optimism.md).
 
 ## Otterscan JSON-RPC API extensions
 
