@@ -17,6 +17,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { ChecksummedAddress, ProcessedTransaction } from "../types";
 import { useAddressBalance, useContractCreator } from "../useErigonHooks";
 import { BlockNumberContext } from "../useBlockTagContext";
+import ExternalLink from "../components/ExternalLink";
 
 type AddressTransactionResultsProps = {
   address: ChecksummedAddress;
@@ -160,9 +161,16 @@ type NavBarProps = {
 const NavBar: React.FC<NavBarProps> = ({ address, page, controller }) => (
   <div className="flex justify-between items-baseline py-3">
     <div className="text-sm text-gray-500">
-      {page === undefined ? (
-        <>Waiting for search results...</>
-      ) : (
+      {page === undefined ?
+        (address === "0x4200000000000000000000000000000000000011" ?
+          <>{"Cannot retrieve records for "} 
+            <ExternalLink href="https://community.optimism.io/docs/developers/bedrock/differences/#sequencerfeevault">
+               SequencerFeeVault 
+            </ExternalLink>
+            {"  contract. TiP Team is working on it. "}</> : 
+          <>Waiting for search results...</>
+        )
+       : (
         <>{page.length} transactions on this page</>
       )}
     </div>

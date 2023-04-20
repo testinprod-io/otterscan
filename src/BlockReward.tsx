@@ -16,7 +16,9 @@ const BlockReward: React.FC<BlockRewardProps> = ({ block }) => {
 
   // totalFees = burntFees(baseFee) + netFeeReward(tip)
   const totalFees = block?.feeReward ?? BigNumber.from(0);
-  const burntFees = (block?.baseFeePerGas && block.baseFeePerGas.mul(block.gasUsed)) ?? BigNumber.from(0);
+  // remove depositTx's gasUsed to calculate burntFees because baseFeePerGas is nonsense for depositTx
+  const gasUsedWithoutDepositTx = block.gasUsed.sub(block.gasUsedDepositTx);
+  const burntFees = (block?.baseFeePerGas && block.baseFeePerGas.mul(gasUsedWithoutDepositTx)) ?? BigNumber.from(0);
   const netFeeReward = totalFees.sub(burntFees);
   const value = eth2USDValue
     ? block.blockReward
