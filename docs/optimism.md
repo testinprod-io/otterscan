@@ -6,7 +6,7 @@ There are optimism specific tweaks to satisfy [op-stack specifications](https://
 
 Transaction page now shows l1 cost fee related fields:
 - `L1 Gas Price`
-- `L1 Fee Scalar`
+- `L1 Fee Scalar` (not used after [Ecotone hard fork](https://github.com/ethereum-optimism/specs/blob/main/specs/protocol/exec-engine.md#ecotone-l1-cost-fee-changes-eip-4844-da))
 - `L1 Gas Used by Txn`
 
 ## [Deposit Transaction](https://github.com/ethereum-optimism/optimism/blob/develop/specs/deposits.md)
