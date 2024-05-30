@@ -25,6 +25,8 @@ const WarningHeader: React.FC = () => {
     chainMsg = "OP Mainnet"
   } else if (chainId == 11155420) {
     chainMsg = "OP Sepolia"
+  } else if (chainId == 42051642) {
+    chainMsg = "Sunnyside Devnet"
   }
   return (
     <div className="w-full bg-orange-400 text-white text-center font-bold px-2 py-1">
